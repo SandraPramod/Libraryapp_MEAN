@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <script src="/js/jquery.js"></script>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+		<meta charset="utf-8">
+		<title><%=title%></title>
+		<meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
+		<!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+    <link href="/css/styles.css" rel="stylesheet">
+    
+	</head>
+	<body>
+<header class="navbar navbar-bright navbar-fixed-top" role="banner">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/home" class="navbar-brand">Home</a>
+    </div>
+    <nav class="collapse navbar-collapse" role="navigation">
+      <ul class="nav navbar-nav">
+       <%for(i=0;i<nav.length;i++){%>
+         <li>
+           <a href="<%=nav[i].link%>"><%=nav[i].name%></a>
+         </li>
+         <%}%>
+      </ul>
+      <a href="/" class="navbar-brand">Sign Out</a>
+      <ul class="nav navbar-right navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
+          <ul class="dropdown-menu" style="padding:12px;">
+            <form class="form-inline">
+              <button type="submit" class="btn btn-default pull-right"><i class="glyphicon glyphicon-search"></i></button><input type="text" class="form-control pull-left" placeholder="Search">
+            </form>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<div id="masthead">  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-7">
+        <h1>Edit Books
+          <p class="lead"></p>
+        </h1>
+      </div>
+      <div class="col-md-5">
+        <div class="well well-lg"> 
+          <div class="row">
+            <div class="col-sm-12">
+              
+			
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div><!-- /cont -->
+  
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="top-spacer"> </div>
+      </div>
+    </div> 
+  </div><!-- /cont -->
+  
+</div>
+
+
+<div class="container">
+  <div class="row">
+    
+    <div class="col-md-12"> 
+      
+      <div class="panel">
+        <div class="panel-body">
+          
+          
+          
+          <!--/stories-->
+          <form action="/edit/books/delete" method="post" onsubmit="return checkedVerify();">
+
+            <div class="row justify-content-end" style="padding: 1rem; padding-top: 0rem;">
+                <input class="secondary-button" type="button" onclick="clearSelection();"
+                    value="Clear Selection">
+                <input class="primary-button" id="submit-button" onclick="showConfirm();" type="button"
+                    value="Delete">
+            </div>
+
+            <div id="delete-confirm" hidden style="padding: 1rem; padding-top: 0;">
+                <div class="row justify-content-end">
+                    <h5>Are you sure you want to delete the selected items?</h5>
+                </div>
+                <div class="row justify-content-end">
+                    <input class="secondary-confirm-button" onclick="hideConfirm();" type="button"
+                        value="Cancel">
+                    <input class="primary-confirm-button" type="submit" value="Confirm">
+                </div>
+            </div>
+
+            <div class="card line-card"></div>
+            <%for(let i=books.length-1;i>=0;i--){%>
+                <div class="row" style="padding-left: 4rem;">
+                    <div class="col-2 row justify-content-center align-items-center">
+                        <input class="delete-box" type="checkbox" name='deleteCheckBox'
+                            value="<%=books[i]._id%>">
+                    </div>
+                    <div class="col-10">
+                        <div class="row align-items-center">
+                            <div class="col-md-2 col-sm-3 row justify-content-center">
+                                <a href="/edit/books/<%=books[i]._id%>" style="text-align: center;"><img alt=""
+                                        src="<%=books[i].image%>" style="width: 100px; height: 100px;"
+                                        class="img-circle"></a>
+                            </div>
+                            <div class="col-md-10 col-sm-9 align-items-center" style="padding-left: 2rem;">
+                                <div class="col-xs-9">
+                                    <a href="/edit/books/<%=books[i]._id%>"
+                                        style="text-decoration: none; color: inherit;">
+                                        <h3 class="topic-name">
+                                            <%=books[i].title%>
+                                        </h3>
+                                        <h5 class="readmore-line">
+                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i> • <a
+                                                href="/edit/books/<%=books[i]._id%>"
+                                                style="text-decoration: none;">Click to edit</a>
+                                        </h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <%}%>
+        </form>
+          <!--/stories-->
+          
+          
+          
+        
+          
+        </div>
+      </div>
+                                                                                       
+	                                                
+                                                      
+   	</div><!--/col-12-->
+  </div>
+</div>
+                                                
+                                                                                
+<hr>
+
+<div class="container" id="footer">
+  <div class="row">
+    <div class="col col-sm-12">
+      
+      <h1>Follow Us</h1>
+      <div class="btn-group">
+       <a class="btn btn-twitter btn-lg" href="#"><i class="icon-twitter icon-large"></i> Twitter</a>
+	   <a class="btn btn-facebook btn-lg" href="#"><i class="icon-facebook icon-large"></i> Facebook</a>
+	   <a class="btn btn-google-plus btn-lg" href="#"><i class="icon-google-plus icon-large"></i> Google+</a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<hr>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="list-inline">
+          <li><i class="icon-facebook icon-2x"></i></li>
+          <li><i class="icon-twitter icon-2x"></i></li>
+          <li><i class="icon-google-plus icon-2x"></i></li>
+          <li><i class="icon-pinterest icon-2x"></i></li>
+        </ul>
+        
+      </div>
+      <div class="col-sm-6">
+        <p class="pull-right">Created by Sandra Pramod<i class="icon-heart-empty"></i></p>      
+      </div>
+    </div>
+  </div>
+</footer>
+	<!-- script references -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="/js/editPage.js"></script>
+	</body>
+</html>
